@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+class Tomatoes
+  def run
+    puts "No active tomato" 
+  end
+end
+
+Tomatoes.new.run
