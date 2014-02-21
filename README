@@ -1,0 +1,22 @@
+tomatoes
+================================================================================
+Utility for time boxing using the Pomodoro technique.
+
+Keeps track of your tomatoes, when they were started and whether they succeeded.
+
+All tomatoes are stored in a CSV file for easy data visualization.
+
+Usage
+--------------------------------------------------------------------------------
+$ tomatoes start <task_name> # Start a new tomato
+$ tomatoes failure           # Report failure (interrupted)
+$ tomatoes success           # Report success
+$ tomatoes status            # Prints status of  current tomato
+
+TODO
+--------------------------------------------------------------------------------
+* tomatoes start
+* tomatoes success
+* tomatoes failure
+* tomatoes status
+* Desktop notifications
