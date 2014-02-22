@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
+require_relative '../lib/tomatoes'
 
-class Tomatoes
-  def run
-    puts "No active tomato" 
-  end
-end
-
-Tomatoes.new.run
+Tomatoes::CLI.new(ARGV).run
