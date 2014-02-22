@@ -9,9 +9,9 @@ All tomatoes are stored in a CSV file for easy data visualization.
 Usage
 --------------------------------------------------------------------------------
 $ tomatoes start [<task_name>] # Start a new tomato
-$ tomatoes fail              # Report failure (interrupted)
-$ tomatoes done              # Report success
-$ tomatoes status            # Prints status of  current tomato
+$ tomatoes fail                # Report failure (interrupted)
+$ tomatoes done                # Report success
+$ tomatoes status              # Prints status of  current tomato
 
 TODO
 --------------------------------------------------------------------------------
