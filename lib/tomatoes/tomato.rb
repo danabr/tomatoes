@@ -14,9 +14,14 @@ module Tomatoes
       end_time - time
     end
 
+    def overdue_at?(time)
+      time_left_at(time) < 0      
+    end
+
     def active?
       state == "new"
     end
+
   end
 
   # Special class that indicate that there is no running tomato
@@ -31,6 +36,10 @@ module Tomatoes
     end
 
     def active?
+      false
+    end
+
+    def overdue_at?(time)
       false
     end
   end

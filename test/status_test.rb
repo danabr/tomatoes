@@ -24,6 +24,14 @@ class StatusTest < MiniTest::Unit::TestCase
     assert_match /Focus on The task! Time left: \d+s/, output
   end
 
+  def test_overdue_tomato
+    start_time = Time.now-10
+    tomato = Tomatoes::Tomato.new("The task", start_time, start_time+1, "new")
+    output = run_command(tomato)
+    assert_match /^The task has finished./, output
+    assert_match /Report success or failure with tomatoes done or tomatoes fail.$/, output
+  end
+
   private
 
   def run_command(tomato)

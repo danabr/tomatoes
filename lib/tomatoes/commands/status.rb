@@ -6,7 +6,9 @@ module Tomatoes
     class Status < Command
       def run
         tomato = tomato_box.active_tomato
-        if tomato.active?
+        if tomato.overdue_at?(Time.now)
+          print_overdue_tomato(tomato)
+        elsif tomato.active?
           print_active_tomato(tomato)
         else
           out.puts "No active tomato"
@@ -15,15 +17,23 @@ module Tomatoes
 
       private
 
-      def print_active_tomato(active)
-        time_left = active.time_left_at(Time.now).round
-        out.puts "Focus#{task_description(active)}! Time left: #{time_left}s"
+      def print_overdue_tomato(tomato)
+        description = tomato.task
+        description = "The task" if description.empty?
+        out.puts "#{description} has finished."
+        out.puts "Report success or failure with tomatoes done or tomatoes fail."
       end
 
-      def task_description(tomato)
-        return "" if tomato.task =~ /^\s*$/
-        " on #{tomato.task}"
+      def print_active_tomato(tomato)
+        description = "" if tomato.task.empty?
+        description ||= " on #{tomato.task}"
+        time_left = tomato.time_left_at(Time.now).round
+        out.puts "Focus#{description}! Time left: #{time_left}s"
       end
+
+      def focus_description(tomato)
+      end
+
     end
   end
 end

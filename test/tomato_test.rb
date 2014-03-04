@@ -34,5 +34,14 @@ class TomatoTest < MiniTest::Unit::TestCase
     done = Tomatoes::Tomato.new("done", Time.now, Time.now, "done")
     refute failed.active?
   end
+
+  def test_overdue_at
+    now = Time.now
+    tomato = Tomatoes::Tomato.new("active", now, now, "new")
+    refute tomato.overdue_at?(now-1)
+    refute tomato.overdue_at?(now)
+    assert tomato.overdue_at?(now+1)
+    refute Tomatoes::NonExistantTomato.new.overdue_at?(now+1)
+  end
 end
 
