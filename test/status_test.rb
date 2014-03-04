@@ -13,13 +13,13 @@ class StatusTest < MiniTest::Unit::TestCase
 
   def test_active_tomato_without_name
     start_time = Time.now
-    output = run_command(Tomatoes::Tomato.new("", start_time, start_time+10))
+    output = run_command(Tomatoes::Tomato.new("", start_time, start_time+10, "new"))
     assert_match /Focus! Time left: \d+s/, output
   end
 
   def test_active_tomato_with_name
     start_time = Time.now
-    tomato = Tomatoes::Tomato.new("The task", start_time, start_time+10)
+    tomato = Tomatoes::Tomato.new("The task", start_time, start_time+10, "new")
     output = run_command(tomato)
     assert_match /Focus on The task! Time left: \d+s/, output
   end

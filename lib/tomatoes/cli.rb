@@ -27,7 +27,11 @@ module Tomatoes
     end
 
     def box
-      TomatoBox.new("/tmp/tomatoes.csv")
+      TomatoBox.new(box_path)
+    end
+
+    def box_path
+      ENV["TOMATO_FILE"] || File.join(ENV["HOME"], "tomatoes.csv")
     end
   end
 end

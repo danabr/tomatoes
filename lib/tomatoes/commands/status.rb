@@ -5,11 +5,11 @@ module Tomatoes
   module Commands
     class Status < Command
       def run
-        active = tomato_box.active_tomato
-        if active.is_a?(NonExistantTomato)
-          out.puts "No active tomato"
+        tomato = tomato_box.active_tomato
+        if tomato.active?
+          print_active_tomato(tomato)
         else
-          print_active_tomato(active)
+          out.puts "No active tomato"
         end
       end
 
