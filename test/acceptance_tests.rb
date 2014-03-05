@@ -38,9 +38,12 @@ class AcceptanceTests < MiniTest::Unit::TestCase
     write_tomatoes([
       ["task3", format_time(start_time), format_time(end_time), "new"]
     ])
-    output = tomatoes("status")
-    assert_match /^task3 has finished./,  output
-    assert_match /Report success or failure with tomatoes done or tomatoes fail.$/, output
+
+    expected = ["task3 has finished.",
+                "Report success or failure with tomatoes done or tomatoes fail.",
+                ""].join("\n")
+
+    assert_equal expected, tomatoes("status")
   end
 
   def test_help

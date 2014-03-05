@@ -19,7 +19,7 @@ module Tomatoes
 
       def print_overdue_tomato(tomato)
         description = tomato.task
-        description = "The task" if description.empty?
+        description = "The tomato" if description.empty?
         out.puts "#{description} has finished."
         out.puts "Report success or failure with tomatoes done or tomatoes fail."
       end
@@ -29,9 +29,6 @@ module Tomatoes
         description ||= " on #{tomato.task}"
         time_left = tomato.time_left_at(Time.now).round
         out.puts "Focus#{description}! Time left: #{time_left}s"
-      end
-
-      def focus_description(tomato)
       end
 
     end
