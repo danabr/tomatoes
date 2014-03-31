@@ -25,10 +25,35 @@ module Tomatoes
       end
     end
 
+    def add(task_name)
+      start_time = Time.now
+      end_time = start_time + 25*60
+      tomatoes << Tomato.new(task_name, start_time, end_time, "new")
+      flush
+      true
+    end
+
     private
 
     def file_exists?
       File.exist?(@path)
+    end
+
+    def flush
+      CSV.open(@path, "wb", csv_opts) do | csv|
+        csv << ["task", "start_time", "end_time", "state"]
+        tomatoes.each do |tomato|
+          csv << [tomato.task,
+                  strftime(tomato.start_time),
+                  strftime(tomato.end_time),
+                  tomato.state
+                 ]
+        end
+      end
+    end
+
+    def strftime(time)
+      time.strftime("%Y-%m-%d %H:%M:%S")
     end
 
     def read_csv

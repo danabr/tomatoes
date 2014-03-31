@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Tomatoes
   class Tomato
-    attr_reader :task, :start_time, :end_time, :state
+    attr_accessor :task, :start_time, :end_time, :state
 
     def initialize(task, start_time, end_time, state)
       @task = task
@@ -22,6 +22,12 @@ module Tomatoes
       state == "new"
     end
 
+    def ==(other)
+      other.task == self.task &&
+      other.start_time.to_i == self.start_time.to_i &&
+      other.end_time.to_i == self.end_time.to_i &&
+      other.state == self.state
+    end
   end
 
   # Special class that indicate that there is no running tomato

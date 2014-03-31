@@ -46,6 +46,16 @@ class AcceptanceTests < MiniTest::Unit::TestCase
     assert_equal expected, tomatoes("status")
   end
 
+  def test_start_no_active_tomato
+    write_tomatoes([
+      ["task1", "2014-02-26 13:40:00", "2014-02-26 14:05:00", "done"],
+      ["task2", "2014-02-27 13:40:00", "2014-02-27 14:05:00", "fail"]
+    ])
+
+    assert_equal "Tomato started.\n", tomatoes("start task3")
+    assert_match /^Focus on task3! Time left: \d+s/, tomatoes("status")
+  end
+
   def test_help
     expected = ["tomatoes - Manage your time",
                 "Usage:",

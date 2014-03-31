@@ -43,5 +43,29 @@ class TomatoTest < MiniTest::Unit::TestCase
     assert tomato.overdue_at?(now+1)
     refute Tomatoes::NonExistantTomato.new.overdue_at?(now+1)
   end
+
+  def test_comparison
+    now = Time.now
+    tomato = Tomatoes::Tomato.new("task", now+1, now+2, "new")
+    assert_equal tomato, tomato
+
+    other = tomato.dup
+    assert_equal tomato, other
+
+    other.task = "another_task"
+    refute_equal tomato, other
+
+    other.task = tomato.task
+    other.start_time = tomato.start_time+1
+    refute_equal tomato, other
+
+    other.start_time = tomato.start_time
+    other.end_time = tomato.end_time+1
+    refute_equal tomato, other
+
+    other.end_time = tomato.end_time
+    other.state = "another state"
+    refute_equal tomato, other
+  end
 end
 

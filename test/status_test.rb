@@ -2,9 +2,9 @@
 require 'test/unit'
 require 'stringio'
 require_relative '../lib/tomatoes'
+require_relative 'lib/fake_tomato_box'
 
 class StatusTest < MiniTest::Unit::TestCase
-  FakeTomatoBox = Struct.new(:active_tomato)
 
   def test_no_active_tomato
     output = run_command(Tomatoes::NonExistantTomato.new)

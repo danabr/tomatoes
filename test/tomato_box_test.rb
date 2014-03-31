@@ -49,6 +49,26 @@ class TomatoBoxTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_add_no_active_tomato
+    box = write_tomatoes([
+      ["failed", "2014-02-26 13:40:00", "2014-02-26 14:05:00", "failed"],
+      ["done", "2014-02-26 13:40:00", "2014-02-26 14:05:00", "done"]
+    ])
+    assert_equal true, box.add("active")
+    assert_equal 3, box.tomatoes.size
+
+    active = box.active_tomato
+    refute_equal Tomatoes::NonExistantTomato.new, active
+    assert_equal "active", active.task
+    assert_in_delta Time.now, active.start_time, 5
+    assert_in_delta Time.now+25*60, active.end_time, 5
+    assert active.active?
+
+    reloaded_box = load_tomatoes
+    assert_equal reloaded_box.active_tomato, active
+    assert_equal reloaded_box.tomatoes, box.tomatoes
+  end
+
   def time(str)
     Time.parse(str)
   end
@@ -57,6 +77,10 @@ class TomatoBoxTest < MiniTest::Unit::TestCase
     header = "task\tstart_time\tend_time\tstate"
     rows = [header] + tomatoes.map {|t| t.join("\t") }
     File.write(TOMATO_FILE, rows.join("\n"))
-    box = Tomatoes::TomatoBox.new(TOMATO_FILE)
+    load_tomatoes
+  end
+
+  def load_tomatoes
+    Tomatoes::TomatoBox.new(TOMATO_FILE)
   end
 end

@@ -1,6 +1,7 @@
 # encoding: utf-8
-require_relative 'commands/status'
 require_relative 'commands/help'
+require_relative 'commands/status'
+require_relative 'commands/start'
 require_relative 'tomato_box'
 
 module Tomatoes
@@ -20,6 +21,7 @@ module Tomatoes
 
     def command_factory
       case @args[0]
+      when "start"  then Commands::Start
       when "status" then Commands::Status
       else
         Commands::Help
